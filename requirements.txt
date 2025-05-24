@@ -1,0 +1,6 @@
+Flask
+opencv-python-headless
+face-recognition
+numpy
+scikit-learn
+gunicorn
