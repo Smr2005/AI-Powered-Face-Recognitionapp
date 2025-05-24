@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recognize Face | FaceAI</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Outfit', sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #1CB5E0, #000046);
+      color: #fff;
+      animation: fadeIn 1s ease-in;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 3rem auto;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #0ef;
+    }
+
+    .video-container {
+      position: relative;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 640px;
+    }
+
+    #video {
+      width: 100%;
+      border: 3px solid #0ef;
+      border-radius: 12px;
+      background-color: #000;
+    }
+
+    #canvas {
+      display: none;
+    }
+
+    .controls {
+      margin: 20px 0;
+    }
+
+    button {
+      background-color: #0ef;
+      color: #000;
+      border: none;
+      padding: 12px 24px;
+      margin: 0 10px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(0, 238, 255, 0.3);
+    }
+
+    button:hover {
+      background-color: #fff;
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      background-color: #555;
+      color: #999;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .svg-overlay {
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 150px;
+      opacity: 0.08;
+      animation: rotate 20s linear infinite;
+    }
+
+    #recognitionResult {
+      margin-top: 20px;
+    }
+
+    .recognition-results {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .face-result {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 15px;
+      min-width: 150px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .face-result.known {
+      border-left: 4px solid #0ef;
+    }
+
+    .face-result.unknown {
+      border-left: 4px solid #ff3860;
+    }
+
+    .face-result .name {
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .face-result .confidence {
+      font-size: 16px;
+      color: #ccc;
+    }
+
+    .no-faces {
+      padding: 15px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      color: #ccc;
+      backdrop-filter: blur(10px);
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://www.svgrepo.com/show/499689/scan-face.svg" alt="Face Scanner" class="svg-overlay" />
+    <h1>🔍 Face Recognition</h1>
+    <p>Click "Start Camera" and stand in front of the camera. We'll try to identify you automatically.</p>
+    
+    <div class="video-container">
+      <video id="video" autoplay playsinline></video>
+      <canvas id="canvas"></canvas>
+    </div>
+    
+    <div class="controls">
+      <button id="startButton">Start Camera</button>
+      <button id="stopButton">Stop Camera</button>
+    </div>
+    
+    <div id="recognitionResult"></div>
+    
+    <div class="footer">
+      <p>Powered by OpenCV + Face Recognition</p>
+    </div>
+  </div>
+  
+  <script src="/static/js/camera.js"></script>
+</body>
+</html>

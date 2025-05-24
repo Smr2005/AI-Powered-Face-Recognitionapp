@@ -1,0 +1,1 @@
+web: gunicorn face-recognition-opencv.face_app_web:app
